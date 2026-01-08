@@ -66,10 +66,16 @@ def convert_to_spec(pdf_id: str, out_dir: Path):
     return len(questions), output_path
 
 if __name__ == "__main__":
-    base = Path(__file__).parent
-    pdf_path = str(base / "data" / "Ch6.pdf")
-    pdf_id = "Ch6"
-    out_dir = base / "artifacts" / "Ch6"
+    import argparse
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--pdf_id", required=True, help="PDF ID")
+    args = parser.parse_args()
+    
+    base = Path(__file__).parent.parent.parent  # 프로젝트 루트로
+    pdf_path = str(base / "data" / "pdfs" / f"{args.pdf_id}.pdf")
+    pdf_id = args.pdf_id
+    out_dir = base / "artifacts" / pdf_id
     
     # 1. Prepare
     run_step("1. PDF 준비", 
