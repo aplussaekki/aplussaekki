@@ -126,7 +126,8 @@ async def get_questions(pdf_id: str):
                 'type': q_dict.get('type'),
                 'question': q_dict.get('question'),
                 'options': q_dict.get('options'),
-                'source': q_dict.get('source')  # optional 필드
+                'source': q_dict.get('source'),  # optional 필드
+                'generated_table': q_dict.get('generated_table')  # 표 기반 문제용
             }
             questions.append(Question(**filtered_dict))
     
