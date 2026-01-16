@@ -88,6 +88,11 @@ class GenerateRequest(BaseModel):
     fallback_model: str = "gpt-4o-mini"
     temperature: float = 0.3
 
+    # 문제 유형/난이도 설정
+    difficulty: str = "mixed"  # easy | medium | hard | mixed
+    mcq_ratio: float = 1.0  # MCQ(객관식) 비율 (0.0~1.0)
+    saq_ratio: float = 0.0  # SAQ(단답형) 비율 (0.0~1.0)
+
     # 단계 선택(운영/디버그 편의)
     run_prepare: bool = True
     run_presence: bool = True
@@ -156,6 +161,11 @@ class JobCreateBody(BaseModel):
 
     # prepare dpi override
     dpi: Optional[int] = None
+
+    # 문제 유형/난이도 설정
+    difficulty: Optional[str] = None  # easy | medium | hard | mixed
+    mcq_ratio: Optional[float] = None  # MCQ 비율 (0.0~1.0)
+    saq_ratio: Optional[float] = None  # SAQ 비율 (0.0~1.0)
 
 
 class JobCreateResponse(BaseModel):
@@ -473,6 +483,9 @@ def _start_pipeline(req: GenerateRequest) -> Dict[str, Any]:
                     "--out_dir", req.out_dir,
                     "--pdf_id", req.pdf_id,
                     "--total_q", str(req.total_q),
+                    "--difficulty", req.difficulty,
+                    "--mcq_ratio", str(req.mcq_ratio),
+                    "--saq_ratio", str(req.saq_ratio),
                 ]
                 if req.overwrite:
                     args.append("--overwrite")
