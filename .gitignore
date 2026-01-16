@@ -1,13 +1,18 @@
-﻿# Python
+# Python
 __pycache__/
 *.pyc
 *.pyo
 .venv/
+env/
+venv/
 
 # Runtime
 data/
 artifacts/
 *.pdf
+
+# Environment
+.env
 
 # IDE
 .vscode/

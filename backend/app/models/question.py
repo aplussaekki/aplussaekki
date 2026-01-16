@@ -1,6 +1,6 @@
 """Question 모델"""
 from pydantic import BaseModel
-from typing import Literal, Optional, List
+from typing import Literal, Optional, List, Dict, Any
 
 
 class Question(BaseModel):
@@ -10,9 +10,11 @@ class Question(BaseModel):
     question: str
     options: Optional[List[str]] = None
     source: Optional[str] = None  # optional 필드
+    generated_table: Optional[Dict[str, Any]] = None  # 표 기반 문제용 표 데이터
 
 
 class QuestionListResponse(BaseModel):
     """문제 목록 응답"""
     items: List[Question]
+
 
